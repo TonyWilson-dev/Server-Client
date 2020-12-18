@@ -22,7 +22,7 @@ namespace Client
         private ClientForm m_ClientForm;
         private BinaryFormatter m_Formatter;
         private MemoryStream m_MemoryStream;
-        private Packets.Packet recievedPacket;
+        private Packet recievedPacket;
         public Client()
         {
             //constructor
@@ -31,7 +31,7 @@ namespace Client
             m_Formatter = new BinaryFormatter();           
         }
 
-        public void SendMessage(Packets.Packet message)
+        public void SendMessage(Packet message)
         {
             m_MemoryStream = new MemoryStream();
 
@@ -70,14 +70,14 @@ namespace Client
             m_ClientForm.ShowDialog();
         }
 
-        public Packets.Packet Read()
+        public Packet Read()
         {
             int numberOfBytes = m_Reader.ReadInt32();
             if (numberOfBytes != -1)
             {
                 byte[] buffer = (m_Reader.ReadBytes(numberOfBytes));
                 MemoryStream memStream = new MemoryStream(buffer);
-                return m_Formatter.Deserialize(memStream) as Packets.Packet; //deserialize data
+                return m_Formatter.Deserialize(memStream) as Packet; //deserialize data
             }
             else throw new ArgumentException("Something went wrong");
         }
@@ -90,12 +90,12 @@ namespace Client
                 switch (recievedPacket.m_PacketType)
                 {
                     case PacketType.ChatMessage: // chat message
-                        Packets.ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
+                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
                         m_ClientForm.UpdateChatWindow(chatPacket.m_Message);
                         break;
-                    case Packets.PacketType.ClientName: // Private message
+                    case PacketType.ClientName: // Private message
                         break;
-                    case Packets.PacketType.PrivateMessage: //client name
+                    case PacketType.PrivateMessage: //client name
                         break;                      
                 }
             }

@@ -30,12 +30,12 @@ namespace Server
                 switch (recievedPacket.m_PacketType)
                 {
                     case PacketType.ChatMessage: // chat message
-                        Packets.ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
+                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
                         client.Send(chatPacket);
                         break;
-                    case Packets.PacketType.ClientName: // Private message
+                    case PacketType.ClientName: // Private message
                         break;
-                    case Packets.PacketType.PrivateMessage: //client name
+                    case PacketType.PrivateMessage: //client name
                         break;
                 }   
             }
