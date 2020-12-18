@@ -21,7 +21,7 @@ namespace Server
         {
             // client method used to read and write to client
             Client client = m_Clients[Index]; // get client from index
-            Packets.Packet recievedPacket;
+            Packet recievedPacket;
 
             Console.WriteLine("client method called");
 
@@ -30,7 +30,9 @@ namespace Server
                 switch (recievedPacket.m_PacketType)
                 {
                     case PacketType.ChatMessage: // chat message
-                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
+                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket; // cast packet as chat packet
+                        
+                        
                         client.Send(chatPacket);
                         break;
                     case PacketType.ClientName: // Private message

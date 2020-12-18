@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Packets;
 
 
 namespace Server
@@ -43,7 +44,7 @@ namespace Server
             m_Writer.Close();
         }
 
-        public Packets.Packet Read()
+        public Packet Read()
         {
           
             lock(m_ReadLock) //lock that allows only one thread to access   
@@ -53,13 +54,13 @@ namespace Server
                 {
                     byte[] buffer = (m_Reader.ReadBytes(numberOfBytes));
                     MemoryStream memStream = new MemoryStream(buffer);
-                    return m_Formatter.Deserialize(memStream) as Packets.Packet; //deserialize data                    
+                    return m_Formatter.Deserialize(memStream) as Packet; //deserialize data                    
                 }
                 else throw new ArgumentException("Something went wrong");
             }         
         }
 
-        public void Send(Packets.Packet message)
+        public void Send(Packet message)
         {
             MemoryStream memStream = new MemoryStream(); //used to store binary data
          
