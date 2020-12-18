@@ -28,8 +28,7 @@ namespace Client
             //constructor
             m_ClientForm = new ClientForm(this);
             m_tcpClient = new TcpClient();
-            m_Formatter = new BinaryFormatter();
-            
+            m_Formatter = new BinaryFormatter();           
         }
 
         public void SendMessage(Packets.Packet message)

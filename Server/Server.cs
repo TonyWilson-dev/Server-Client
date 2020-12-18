@@ -17,7 +17,7 @@ namespace Server
         private TcpListener m_tcplistener;
         private ConcurrentDictionary<int, Client> m_Clients;
 
-        private void ClientMethod(int Index) // where and how is this method called?
+        private void ClientMethod(int Index)
         {
             // client method used to read and write to client
             Client client = m_Clients[Index]; // get client from index

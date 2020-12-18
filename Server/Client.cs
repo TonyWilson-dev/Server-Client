@@ -53,14 +53,10 @@ namespace Server
                 {
                     byte[] buffer = (m_Reader.ReadBytes(numberOfBytes));
                     MemoryStream memStream = new MemoryStream(buffer);
-                    return m_Formatter.Deserialize(memStream) as Packets.Packet; //deserialize data
-                    // 'Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.'
-
+                    return m_Formatter.Deserialize(memStream) as Packets.Packet; //deserialize data                    
                 }
                 else throw new ArgumentException("Something went wrong");
-            }
-
-         
+            }         
         }
 
         public void Send(Packets.Packet message)
