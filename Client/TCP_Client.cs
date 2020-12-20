@@ -35,17 +35,17 @@ namespace Client
             m_Formatter = new BinaryFormatter();           
         }
 
-        public void TCP_SendMessage(Packet message)
+        public void TCP_SendMessage(Packet packet)
         {
             m_MemoryStream = new MemoryStream();
 
-            m_Formatter.Serialize(m_MemoryStream, message);
+            m_Formatter.Serialize(m_MemoryStream, packet);
             byte[] buffer = m_MemoryStream.GetBuffer();
             m_Writer.Write(buffer.Length);
             m_Writer.Write(buffer);
             m_Writer.Flush();
 
-            Console.WriteLine("message sent");
+            Console.WriteLine("TCP message sent");
         }
 
         public bool Connect(string ipAdress, int port)
@@ -95,7 +95,7 @@ namespace Client
 
         private void TCP_ProcessServerResponse()
         {
-            Console.WriteLine("Process Server Response called");           
+            Console.WriteLine("TCP Process Server Response called");           
             while (((recievedPacket = TCP_Read()) != null)) //blocking call unitl readline recieves data
             {
                 switch (recievedPacket.m_PacketType)
@@ -139,6 +139,17 @@ namespace Client
         public void UDP_SendMessge(Packet packet)
         {
             // send message
+            m_MemoryStream = new MemoryStream();
+
+            m_Formatter.Serialize(m_MemoryStream, packet);
+            byte[] buffer = m_MemoryStream.GetBuffer();
+            m_UdpClient.Send(buffer, buffer.Length);
+            
+            
+            m_Writer.Flush(); //needed?
+
+            Console.WriteLine("UDP message sent");
+
         }
 
         private void UDP_ProcessServerResponse()
