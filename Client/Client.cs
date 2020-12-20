@@ -31,7 +31,7 @@ namespace Client
             m_Formatter = new BinaryFormatter();           
         }
 
-        public void SendMessage(Packet message)
+        public void TCP_SendMessage(Packet message)
         {
             m_MemoryStream = new MemoryStream();
 
@@ -65,12 +65,12 @@ namespace Client
         public void Run()
         {
             Console.WriteLine("Run called");
-            Thread thread1 = new Thread(new ThreadStart(ProcessServerResponse));
+            Thread thread1 = new Thread(new ThreadStart(TCP_ProcessServerResponse));
             thread1.Start();
             m_ClientForm.ShowDialog();
         }
 
-        public Packet Read()
+        public Packet TCP_Read()
         {
             int numberOfBytes = m_Reader.ReadInt32();
             if (numberOfBytes != -1)
@@ -82,10 +82,10 @@ namespace Client
             else throw new ArgumentException("Something went wrong");
         }
 
-        private void ProcessServerResponse()
+        private void TCP_ProcessServerResponse()
         {
             Console.WriteLine("Process Server Response called");           
-            while (((recievedPacket = Read()) != null)) //blocking call unitl readline recieves data
+            while (((recievedPacket = TCP_Read()) != null)) //blocking call unitl readline recieves data
             {
                 switch (recievedPacket.m_PacketType)
                 {

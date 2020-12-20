@@ -53,7 +53,7 @@ namespace Client
         {
             var m_ChatMessage = new Packets.ChatMessagePacket(m_Message);
             m_ChatMessage.m_PacketType = 0;
-            m_client.SendMessage(m_ChatMessage); //implement method in client class
+            m_client.TCP_SendMessage(m_ChatMessage); //implement method in client class
             InputField.Text = ("");
         }
 
