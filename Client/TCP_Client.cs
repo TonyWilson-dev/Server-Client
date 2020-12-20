@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Client
 {
-    public class Client
+    public class TCP_Client
     {
         private TcpClient m_tcpClient;
         private NetworkStream m_NetworkStream;
@@ -24,11 +24,14 @@ namespace Client
         private BinaryFormatter m_Formatter;
         private MemoryStream m_MemoryStream;
         private Packet recievedPacket;
-        public Client()
+
+        private UdpClient m_UdpClient;
+        public TCP_Client()
         {
             //constructor
             m_ClientForm = new ClientForm(this);
             m_tcpClient = new TcpClient();
+            
             m_Formatter = new BinaryFormatter();           
         }
 
@@ -51,6 +54,8 @@ namespace Client
             {
                 m_tcpClient.Connect(ipAdress, port); // connect to server
                 m_NetworkStream = m_tcpClient.GetStream();
+                m_UdpClient = new UdpClient();
+                m_UdpClient.Connect(ipAdress, port);
                 m_Reader = new BinaryReader(m_NetworkStream, Encoding.UTF8);
                 m_Writer = new BinaryWriter(m_NetworkStream, Encoding.UTF8);
                 return true;
@@ -68,7 +73,12 @@ namespace Client
             Console.WriteLine("Run called");
             Thread thread1 = new Thread(new ThreadStart(TCP_ProcessServerResponse));
             thread1.Start();
-            m_ClientForm.ShowDialog();
+            
+            Thread thread2 = new Thread(new ThreadStart(UDP_ProcessServerResponse));
+            thread2.Start();
+
+            Login();
+            m_ClientForm.ShowDialog();         
         }
 
         public Packet TCP_Read()
@@ -101,5 +111,25 @@ namespace Client
                 }
             }
         }
+
+        public void Login()
+        {
+            //login
+
+            Console.WriteLine("Login called");
+
+
+        }
+
+        public void UDP_SendMessge(Packet packet)
+        {
+            // send message
+        }
+
+        private void UDP_ProcessServerResponse()
+        {
+            //process server response
+        }
+
     }
 }

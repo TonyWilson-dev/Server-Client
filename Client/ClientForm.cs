@@ -12,7 +12,7 @@ namespace Client
 {
     public partial class ClientForm : Form
     {
-        private Client m_client;
+        private TCP_Client m_client;
 
         public string m_Message;
 
@@ -24,7 +24,7 @@ namespace Client
         }
 
         
-       public ClientForm(Client client) 
+       public ClientForm(TCP_Client client) 
         {
             InitializeComponent();
             m_client = client;

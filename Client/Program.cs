@@ -14,7 +14,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            var client = new Client();
+            var client = new TCP_Client();
 
             Console.WriteLine("Client created");
 
