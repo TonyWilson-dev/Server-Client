@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Packets
 {
@@ -6,7 +7,8 @@ namespace Packets
     {
         ChatMessage = 0,
         PrivateMessage = 1,
-        ClientName = 2
+        ClientName = 2,
+        Login = 3
     }
 
     [Serializable]
@@ -32,8 +34,23 @@ namespace Packets
         public string m_Message;
         public ChatMessagePacket(string message)
         {
+            this.m_PacketType = (PacketType)0;
             m_Message = message;
            
+        }
+    }
+
+    [Serializable]
+
+    public class LoginPacket: Packet
+    {
+        public IPEndPoint m_EndPoint;
+
+
+        public LoginPacket (IPEndPoint endPoint)
+        {
+            this.m_PacketType = (PacketType)3;
+            m_EndPoint = endPoint;
         }
     }
 }
