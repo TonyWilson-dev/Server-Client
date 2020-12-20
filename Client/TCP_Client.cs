@@ -16,7 +16,7 @@ namespace Client
 {
     public class TCP_Client
     {
-        private TcpClient m_tcpClient;
+        private TcpClient m_TcpClient;
         private NetworkStream m_NetworkStream;
         private BinaryWriter m_Writer;
         private BinaryReader m_Reader;
@@ -30,7 +30,7 @@ namespace Client
         {
             //constructor
             m_ClientForm = new ClientForm(this);
-            m_tcpClient = new TcpClient();
+            m_TcpClient = new TcpClient();
             
             m_Formatter = new BinaryFormatter();           
         }
@@ -52,8 +52,8 @@ namespace Client
         {
             try
             {
-                m_tcpClient.Connect(ipAdress, port); // connect to server
-                m_NetworkStream = m_tcpClient.GetStream();
+                m_TcpClient.Connect(ipAdress, port); // connect to server
+                m_NetworkStream = m_TcpClient.GetStream();
                 m_UdpClient = new UdpClient();
                 m_UdpClient.Connect(ipAdress, port);
                 m_Reader = new BinaryReader(m_NetworkStream, Encoding.UTF8);
@@ -112,12 +112,27 @@ namespace Client
             }
         }
 
+        public void Close() //TODO: make this be called at some point 
+        {
+            m_NetworkStream.Close();
+            m_Reader.Close();
+            m_Writer.Close();
+
+            m_TcpClient.Close();
+            m_UdpClient.Close();
+        }
+
         public void Login()
         {
             //login
 
             Console.WriteLine("Login called");
 
+            var loginPacket = new LoginPacket((IPEndPoint)m_UdpClient.Client.LocalEndPoint);
+
+            TCP_SendMessage(loginPacket);
+
+            Console.WriteLine("Login packet sent");
 
         }
 

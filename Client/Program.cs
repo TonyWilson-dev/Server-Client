@@ -22,6 +22,7 @@ namespace Client
             {
                 Console.WriteLine("Connection successful");
                 client.Run();
+                client.Close();
             }
             else
             {
