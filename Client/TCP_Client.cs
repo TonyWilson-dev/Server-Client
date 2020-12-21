@@ -22,7 +22,8 @@ namespace Client
         private BinaryReader m_Reader;
         private ClientForm m_ClientForm;
         private BinaryFormatter m_Formatter;
-        private MemoryStream m_MemoryStream;
+        private MemoryStream m_TCPMemoryStream;
+        private MemoryStream m_UDPMemoryStream;
         private Packet recievedPacket;
 
         private UdpClient m_UdpClient;
@@ -37,10 +38,10 @@ namespace Client
 
         public void TCP_SendMessage(Packet packet)
         {
-            m_MemoryStream = new MemoryStream();
+            m_TCPMemoryStream = new MemoryStream();
 
-            m_Formatter.Serialize(m_MemoryStream, packet);
-            byte[] buffer = m_MemoryStream.GetBuffer();
+            m_Formatter.Serialize(m_TCPMemoryStream, packet);
+            byte[] buffer = m_TCPMemoryStream.GetBuffer();
             m_Writer.Write(buffer.Length);
             m_Writer.Write(buffer);
             m_Writer.Flush();
@@ -139,10 +140,10 @@ namespace Client
         public void UDP_SendMessge(Packet packet)
         {
             // send message
-            m_MemoryStream = new MemoryStream();
+            m_TCPMemoryStream = new MemoryStream();
 
-            m_Formatter.Serialize(m_MemoryStream, packet);
-            byte[] buffer = m_MemoryStream.GetBuffer();
+            m_Formatter.Serialize(m_TCPMemoryStream, packet);
+            byte[] buffer = m_TCPMemoryStream.GetBuffer();
             m_UdpClient.Send(buffer, buffer.Length);
             
             
@@ -155,6 +156,24 @@ namespace Client
         private void UDP_ProcessServerResponse()
         {
             //process server response
+            try
+            {
+                var endPoint = new IPEndPoint(IPAddress.Any, 0);
+
+                while (true)
+                {       
+                        byte[] bytes = m_UdpClient.Receive(ref endPoint);
+
+                        MemoryStream memStream = new MemoryStream(bytes);
+                        recievedPacket = m_Formatter.Deserialize(memStream) as Packet; //deserialize data
+                }
+
+            }
+            catch(SocketException e)
+            {
+                Console.WriteLine("Client UDP read method exception: " + e.Message);
+            }
+
         }
 
     }
