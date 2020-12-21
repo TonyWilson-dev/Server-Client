@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 using Packets;
 
 namespace Server
@@ -16,12 +17,37 @@ namespace Server
     {
         private TcpListener m_TcpListener;
         private ConcurrentDictionary<int, Client> m_Clients;
-
+        public Packet m_RecievedPacket;
         private UdpClient m_UdpListener;
+        private BinaryFormatter m_Formatter;
 
         private void UDP_Listen()
         {
+            //process server response
+            try
+            {
+                var endPoint = new IPEndPoint(IPAddress.Any, 0);
 
+                while (true)
+                {
+                    byte[] bytes = m_UdpListener.Receive(ref endPoint);
+
+                    MemoryStream memStream = new MemoryStream(bytes);
+                    m_RecievedPacket = m_Formatter.Deserialize(memStream) as Packet; //deserialize data
+
+                    foreach (KeyValuePair<int, Client> entry in m_Clients) //iterate over every entry in dictionary
+                    {
+                        if (endPoint.ToString() == entry.Value.m_IPEndPoint.ToString())
+                        {
+                            // handle packet
+                        }
+                    }
+                }
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("Client UDP read method exception: " + e.Message);
+            }
         }
 
         private void TCP_ClientMethod(int Index)
@@ -47,8 +73,20 @@ namespace Server
                     case PacketType.PrivateMessage: //client name
                         break;
                     case PacketType.Login: //login
+
+                        Console.WriteLine("Login packet recieved");
+
                         LoginPacket loginPacket = (LoginPacket)recievedPacket; // cast packet as login packet                     
                         m_Clients[Index].m_IPEndPoint = loginPacket.m_EndPoint;  //set clients IP Endpoint to one stored inpacket
+
+                        foreach (KeyValuePair<int, Client> entry in m_Clients) //iterate over every entry in dictionary
+                        {
+                            MemoryStream memStream = new MemoryStream(); //used to store binary data
+                            m_RecievedPacket = recievedPacket;
+                            m_Formatter.Serialize(memStream, m_RecievedPacket);
+                            byte[] buffer = memStream.GetBuffer();
+                            m_UdpListener.Send(buffer, buffer.Length, entry.Value.m_IPEndPoint); // send data back to client
+                        }
 
                         break;
                 }   
@@ -62,6 +100,10 @@ namespace Server
             IPAddress ip = IPAddress.Parse(ipAddress);
             m_TcpListener = new TcpListener(ip, port); // create instance of TcpListener
             m_UdpListener = new UdpClient(port);
+
+            m_Formatter = new BinaryFormatter();
+     
+
 
             var thread = new Thread(() => { UDP_Listen(); }); // start udp listen thread
             thread.Start();
