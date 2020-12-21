@@ -209,22 +209,32 @@ namespace Client
 
         }
 
-        public void Encrypt()
+        public byte[] Encrypt(byte[] data)
         {
+            lock (m_RSAProvider)
+            {
+                m_RSAProvider.ImportParameters(m_ServerKey);
 
+                return m_RSAProvider.Encrypt(data, true);
+            }
+            
         }
-        public void Decrypt()
+        public byte[] Decrypt(byte[] data)
         {
-
+            lock (m_RSAProvider)
+            {
+                m_RSAProvider.ImportParameters(m_PrivateKey);
+                return m_RSAProvider.Decrypt(data, true);
+            }
         }
-        public void EncyrptSring()
+        public byte [] EncryptString(string message)
         {
-
+            return Encrypt( Encoding.UTF8.GetBytes(message) ); //convert strting to bytes, pass to encrypt, return byte array
         }
 
-        public void DecryptSring()
+        public string DecryptString(byte[] data)
         {
-
+            return Encoding.UTF8.GetString(Decrypt(data)); //decrypt data, convert to string and return
         }
 
     }
