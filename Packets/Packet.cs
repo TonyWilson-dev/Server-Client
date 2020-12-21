@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Packets
 {
@@ -8,7 +9,8 @@ namespace Packets
         ChatMessage = 0,
         PrivateMessage = 1,
         ClientName = 2,
-        Login = 3
+        Login = 3,
+        Encrypt = 4
     }
 
     [Serializable]
@@ -51,6 +53,17 @@ namespace Packets
         {
             this.m_PacketType = (PacketType)3;
             m_EndPoint = endPoint;
+        }
+    }
+    [Serializable]
+    public class EncryptPacket : Packet
+    {
+        public RSAParameters m_PublicKey;
+
+        public EncryptPacket(RSAParameters PublicKey)
+        {
+            this.m_PacketType = (PacketType)4;
+            m_PublicKey = PublicKey;
         }
     }
 }

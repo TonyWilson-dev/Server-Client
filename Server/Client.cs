@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using Packets;
 
 
@@ -25,6 +26,14 @@ namespace Server
 
         public IPEndPoint m_IPEndPoint;
 
+        //encryption members
+        private RSACryptoServiceProvider m_RSAProvider;
+        private RSAParameters m_PublicKey;
+        private RSAParameters m_PrivateKey;
+
+        private RSAParameters m_ClientKey;
+        public RSAParameters M_ClientKey { get; set; }
+
         public Client (Socket socket)
         {
             // constructor
@@ -35,6 +44,19 @@ namespace Server
             m_NetworkStream = new NetworkStream(socket, true);
             m_Reader = new BinaryReader(m_NetworkStream, Encoding.UTF8);
             m_Writer = new BinaryWriter(m_NetworkStream, Encoding.UTF8);
+
+            //encryption
+            m_RSAProvider = new RSACryptoServiceProvider(1024);
+            m_PublicKey = m_RSAProvider.ExportParameters(false);
+            m_PrivateKey = m_RSAProvider.ExportParameters(true);
+
+            EncryptPacket encryptPacket = new EncryptPacket(m_PublicKey);
+
+            Console.WriteLine("Encrypt packet sent");
+
+            EncryptPacket sendPacket = (EncryptPacket)encryptPacket; // cast packet as encrypt packet
+
+            Send(sendPacket);
 
         }
 
@@ -75,5 +97,24 @@ namespace Server
                 m_Writer.Flush();
             }
         }
+
+        public void Encrypt()
+        {
+            
+        }
+        public void Decrypt()
+        {
+
+        }
+        public void EncyrptSring()
+        {
+
+        }
+
+        public void DecryptSring()
+        {
+
+        }
+
     }
 }

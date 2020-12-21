@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using Packets;
 using System.Text.RegularExpressions;
 
@@ -18,7 +19,7 @@ namespace Client
     {
         private TcpClient m_TcpClient;
         private NetworkStream m_NetworkStream;
-        private BinaryWriter m_Writer;
+        public BinaryWriter m_Writer;
         private BinaryReader m_Reader;
         private ClientForm m_ClientForm;
         private BinaryFormatter m_Formatter;
@@ -26,18 +27,36 @@ namespace Client
         private Packet recievedPacket;
 
         private UdpClient m_UdpClient;
+
+        //encryption members
+        private RSACryptoServiceProvider m_RSAProvider;
+        private RSAParameters m_PublicKey;
+        private RSAParameters m_PrivateKey;
+
+        private RSAParameters m_ServerKey;
+        public RSAParameters M_ServerKey { get; set; }
+
         public TCP_Client()
         {
             //constructor
             m_ClientForm = new ClientForm(this);
             m_TcpClient = new TcpClient();
             
-            m_Formatter = new BinaryFormatter();           
+            m_Formatter = new BinaryFormatter();
+            
+            //ENCRYPTION
+            m_RSAProvider = new RSACryptoServiceProvider(1024);
+            m_PublicKey = m_RSAProvider.ExportParameters(false);
+            m_PrivateKey = m_RSAProvider.ExportParameters(true);
+
+            
+
         }
 
         public void TCP_SendMessage(Packet packet)
         {
             m_MemoryStream = new MemoryStream();
+            
 
             m_Formatter.Serialize(m_MemoryStream, packet);
             byte[] buffer = m_MemoryStream.GetBuffer();
@@ -58,6 +77,15 @@ namespace Client
                 m_UdpClient.Connect(ipAdress, port);
                 m_Reader = new BinaryReader(m_NetworkStream, Encoding.UTF8);
                 m_Writer = new BinaryWriter(m_NetworkStream, Encoding.UTF8);
+
+                EncryptPacket encryptPacket = new EncryptPacket(m_PublicKey);
+
+                EncryptPacket sendPacket = (EncryptPacket)encryptPacket; // cast packet as chat packet
+
+                TCP_SendMessage(sendPacket);
+
+                Console.WriteLine("Encrypt packet sent");
+
                 return true;
             }
 
@@ -100,14 +128,20 @@ namespace Client
             {
                 switch (recievedPacket.m_PacketType)
                 {
-                    case PacketType.ChatMessage: // chat message
-                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
-                        m_ClientForm.UpdateChatWindow(chatPacket.m_Message);
+                    case PacketType.ChatMessage: // chat message                        
+                            ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
+                            m_ClientForm.UpdateChatWindow(chatPacket.m_Message);                       
                         break;
                     case PacketType.ClientName: // Private message
                         break;
                     case PacketType.PrivateMessage: //client name
-                        break;                      
+                        break;
+
+                    case PacketType.Encrypt: //encrypt packet
+                        EncryptPacket encryptPacket = (EncryptPacket)recievedPacket; //cast packet as encrypt packet
+                        M_ServerKey = encryptPacket.m_PublicKey;
+                        Console.WriteLine("client key recieved: " + M_ServerKey);
+                        break;
                 }
             }
         }
@@ -172,6 +206,24 @@ namespace Client
             {
                 Console.WriteLine("Client UDP read method exception: " + e.Message);
             }
+
+        }
+
+        public void Encrypt()
+        {
+
+        }
+        public void Decrypt()
+        {
+
+        }
+        public void EncyrptSring()
+        {
+
+        }
+
+        public void DecryptSring()
+        {
 
         }
 

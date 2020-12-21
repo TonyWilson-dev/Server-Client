@@ -63,10 +63,10 @@ namespace Server
                 switch (recievedPacket.m_PacketType)
                 {
                     case PacketType.ChatMessage: // chat message
-                        ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket; // cast packet as chat packet
                         
+                            ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket; // cast packet as chat packet
+                            client.Send(chatPacket);
                         
-                        client.Send(chatPacket);
                         break;
                     case PacketType.ClientName: // Private message
                         break;
@@ -88,6 +88,13 @@ namespace Server
                             m_UdpListener.Send(buffer, buffer.Length, entry.Value.m_IPEndPoint); // send data back to client
                         }
 
+                        break;
+
+                    case PacketType.Encrypt: //encrypt packet
+                        EncryptPacket encryptPacket = (EncryptPacket)recievedPacket; //cast packet as encrypt packet
+                        m_Clients[Index].M_ClientKey = encryptPacket.m_PublicKey;
+
+                        Console.WriteLine("client key recieved: " + m_Clients[Index].M_ClientKey);
                         break;
                 }   
             }

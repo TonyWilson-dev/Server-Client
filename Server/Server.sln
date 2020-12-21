@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "..\Client\Client.csproj", "{51EB673F-CEAF-463E-B3A4-5AAD767151DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packets", "..\Packets\Packets.csproj", "{EAD2E6F9-0430-4B90-AC2B-2E6D7922955F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Packets", "..\Packets\Packets.csproj", "{EAD2E6F9-0430-4B90-AC2B-2E6D7922955F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{751F1BC0-BE91-47E9-9D13-5F1DDFF75B9A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
