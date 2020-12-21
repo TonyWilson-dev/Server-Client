@@ -23,6 +23,8 @@ namespace Server
         private object m_WriteLock;
         private BinaryFormatter m_Formatter;
 
+        public IPEndPoint m_IPEndPoint;
+
         public Client (Socket socket)
         {
             // constructor

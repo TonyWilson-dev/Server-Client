@@ -22,8 +22,7 @@ namespace Client
         private BinaryReader m_Reader;
         private ClientForm m_ClientForm;
         private BinaryFormatter m_Formatter;
-        private MemoryStream m_TCPMemoryStream;
-        private MemoryStream m_UDPMemoryStream;
+        private MemoryStream m_MemoryStream;
         private Packet recievedPacket;
 
         private UdpClient m_UdpClient;
@@ -38,10 +37,10 @@ namespace Client
 
         public void TCP_SendMessage(Packet packet)
         {
-            m_TCPMemoryStream = new MemoryStream();
+            m_MemoryStream = new MemoryStream();
 
-            m_Formatter.Serialize(m_TCPMemoryStream, packet);
-            byte[] buffer = m_TCPMemoryStream.GetBuffer();
+            m_Formatter.Serialize(m_MemoryStream, packet);
+            byte[] buffer = m_MemoryStream.GetBuffer();
             m_Writer.Write(buffer.Length);
             m_Writer.Write(buffer);
             m_Writer.Flush();
@@ -140,10 +139,10 @@ namespace Client
         public void UDP_SendMessge(Packet packet)
         {
             // send message
-            m_TCPMemoryStream = new MemoryStream();
+            m_MemoryStream = new MemoryStream();
 
-            m_Formatter.Serialize(m_TCPMemoryStream, packet);
-            byte[] buffer = m_TCPMemoryStream.GetBuffer();
+            m_Formatter.Serialize(m_MemoryStream, packet);
+            byte[] buffer = m_MemoryStream.GetBuffer();
             m_UdpClient.Send(buffer, buffer.Length);
             
             

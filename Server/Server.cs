@@ -17,6 +17,8 @@ namespace Server
         private TcpListener m_tcplistener;
         private ConcurrentDictionary<int, Client> m_Clients;
 
+        private UdpClient m_UdpListener;
+
         private void ClientMethod(int Index)
         {
             // client method used to read and write to client
