@@ -46,6 +46,11 @@ namespace Server
                         break;
                     case PacketType.PrivateMessage: //client name
                         break;
+                    case PacketType.Login: //login
+                        LoginPacket loginPacket = (LoginPacket)recievedPacket; // cast packet as login packet                     
+                        m_Clients[Index].m_IPEndPoint = loginPacket.m_EndPoint;  //set clients IP Endpoint to one stored inpacket
+
+                        break;
                 }   
             }
             m_Clients[Index].Close();
