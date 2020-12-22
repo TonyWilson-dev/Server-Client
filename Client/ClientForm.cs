@@ -14,6 +14,8 @@ namespace Client
     {
         private TCP_Client m_client;
 
+        private string m_NickName;
+
         public string m_Message;
 
         public Packets.ChatMessagePacket m_ChatMessage;
@@ -74,11 +76,14 @@ namespace Client
         {
             var setNickName = new Packets.SetNickName(nicknameTextBox.Text);
             m_client.TCP_SendMessage(setNickName); //implement method in client class
+            m_NickName = nicknameTextBox.Text;
             introLabel.Text = ("Your nick name is: " + nicknameTextBox.Text);
             joinButton.Hide();
+            /*
             DMbutton.Show();
             DMIntro.Show();
             nicknameTextBox.Text = "";
+            */
         }
 
         private void introLabel_Click(object sender, EventArgs e)
@@ -86,9 +91,13 @@ namespace Client
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void DMbutton_Click(object sender, EventArgs e)
         {
-
+            var DM = new Packets.PrivateMessage(InputField.Text, nicknameTextBox.Text, m_NickName);
+            m_client.TCP_SendMessage(DM);
+            InputField.Text = "";
+            nicknameTextBox.Text = "";
         }
+
     }
 }

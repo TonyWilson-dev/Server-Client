@@ -11,7 +11,7 @@ namespace Packets
         ClientName = 2,
         Login = 3,
         Encrypt = 4,
-        SetNickName = 5
+        SetNickName = 5,
     }
 
     [Serializable]
@@ -79,5 +79,21 @@ namespace Packets
             m_NickName = Nickname;
         }
     }
+
+    [Serializable]
+    public class PrivateMessage : Packet
+    {
+        public string m_Destination;
+        public string m_Message;
+        public string m_Sender;
+        public PrivateMessage(string message, string desitnation, string sender)
+        {
+            m_Message = message;
+            m_Destination = desitnation;
+            m_Sender = sender;
+            this.m_PacketType = (PacketType)1;           
+        }
+    }
+
 
 }

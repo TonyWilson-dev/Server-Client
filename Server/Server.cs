@@ -71,22 +71,37 @@ namespace Server
                         {
                             string name1 = m_Names[Index];
                             chatPacket.m_Message = name1 + ": " + chatPacket.m_Message;
-                            client.Send(chatPacket);
+                            
+                            for (int i = 0; i < m_Clients.Count; i++)
+                            {
+                                m_Clients[i].Send(chatPacket);
+                            }
+                            
+                            
                         }
                         catch
                         {
                             chatPacket.m_Message = "set a nickname";
                             client.Send(chatPacket);
-                        }
-
-
-                        
-
-
-                        
-                        
+                        }              
                         break;
                     case PacketType.ClientName: // Private message
+
+                        PrivateMessage privateMessage = (PrivateMessage)recievedPacket; //cast packet as private message
+
+                        string destination = privateMessage.m_Destination;
+                        string sender = privateMessage.m_Sender;
+                        string message = privateMessage.m_Message;
+
+                        var privateMessageSend = new ChatMessagePacket(message);
+
+                        privateMessageSend.m_Message = "From " + sender + ": " + message;
+
+                        
+                        var key = m_Names.FirstOrDefault(i => i.Value == destination).Key;
+
+                        m_Clients[key].Send(privateMessageSend);
+
                         break;
                     case PacketType.PrivateMessage: //client name
                         break;

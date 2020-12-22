@@ -41,8 +41,6 @@ namespace Client
             this.joinButton = new System.Windows.Forms.Button();
             this.nicknameTextBox = new System.Windows.Forms.TextBox();
             this.errorLabel = new System.Windows.Forms.Label();
-            this.DMIntro = new System.Windows.Forms.Label();
-            this.DMbutton = new System.Windows.Forms.Button();
             SubmitButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -54,7 +52,7 @@ namespace Client
             // SubmitButton
             // 
             SubmitButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            SubmitButton.Location = new System.Drawing.Point(636, 3);
+            SubmitButton.Location = new System.Drawing.Point(965, 3);
             SubmitButton.Name = "SubmitButton";
             SubmitButton.Size = new System.Drawing.Size(75, 28);
             SubmitButton.TabIndex = 2;
@@ -67,7 +65,7 @@ namespace Client
             this.InputField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InputField.Location = new System.Drawing.Point(3, 3);
             this.InputField.Name = "InputField";
-            this.InputField.Size = new System.Drawing.Size(627, 26);
+            this.InputField.Size = new System.Drawing.Size(956, 26);
             this.InputField.TabIndex = 1;
             this.InputField.TextChanged += new System.EventHandler(this.InputField_TextChanged);
             // 
@@ -79,12 +77,12 @@ namespace Client
             this.tableLayoutPanel1.Controls.Add(SubmitButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.InputField, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 528);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 729);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(714, 34);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1043, 34);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // MessageWindow
@@ -93,7 +91,7 @@ namespace Client
             this.MessageWindow.Location = new System.Drawing.Point(3, 3);
             this.MessageWindow.Multiline = true;
             this.MessageWindow.Name = "MessageWindow";
-            this.MessageWindow.Size = new System.Drawing.Size(493, 522);
+            this.MessageWindow.Size = new System.Drawing.Size(724, 723);
             this.MessageWindow.TabIndex = 0;
             this.MessageWindow.TextChanged += new System.EventHandler(this.MessageWindow_TextChanged);
             // 
@@ -109,7 +107,7 @@ namespace Client
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(714, 528);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1043, 729);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // tableLayoutPanel3
@@ -119,13 +117,13 @@ namespace Client
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(502, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(733, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(209, 522);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(307, 723);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -142,7 +140,7 @@ namespace Client
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(203, 516);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(301, 717);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // introLabel
@@ -151,7 +149,7 @@ namespace Client
             this.introLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.introLabel.Location = new System.Drawing.Point(3, 0);
             this.introLabel.Name = "introLabel";
-            this.introLabel.Size = new System.Drawing.Size(197, 154);
+            this.introLabel.Size = new System.Drawing.Size(295, 215);
             this.introLabel.TabIndex = 0;
             this.introLabel.Text = "Please set a nickname";
             this.introLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -164,25 +162,23 @@ namespace Client
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel5.Controls.Add(this.nicknameTextBox, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.joinButton, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.DMIntro, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.DMbutton, 0, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 157);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 218);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.60606F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.84848F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(197, 148);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(295, 209);
             this.tableLayoutPanel5.TabIndex = 1;
             this.tableLayoutPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel5_Paint);
             // 
             // joinButton
             // 
             this.joinButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.joinButton.Location = new System.Drawing.Point(140, 54);
+            this.joinButton.Location = new System.Drawing.Point(209, 75);
             this.joinButton.Name = "joinButton";
-            this.joinButton.Size = new System.Drawing.Size(54, 24);
+            this.joinButton.Size = new System.Drawing.Size(83, 36);
             this.joinButton.TabIndex = 0;
             this.joinButton.Text = "Join";
             this.joinButton.UseVisualStyleBackColor = true;
@@ -191,9 +187,9 @@ namespace Client
             // nicknameTextBox
             // 
             this.nicknameTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nicknameTextBox.Location = new System.Drawing.Point(3, 54);
+            this.nicknameTextBox.Location = new System.Drawing.Point(3, 75);
             this.nicknameTextBox.Name = "nicknameTextBox";
-            this.nicknameTextBox.Size = new System.Drawing.Size(131, 26);
+            this.nicknameTextBox.Size = new System.Drawing.Size(200, 26);
             this.nicknameTextBox.TabIndex = 1;
             this.nicknameTextBox.Text = "User";
             // 
@@ -201,40 +197,16 @@ namespace Client
             // 
             this.errorLabel.AutoSize = true;
             this.errorLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.errorLabel.Location = new System.Drawing.Point(3, 308);
+            this.errorLabel.Location = new System.Drawing.Point(3, 430);
             this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(197, 208);
+            this.errorLabel.Size = new System.Drawing.Size(295, 287);
             this.errorLabel.TabIndex = 2;
-            // 
-            // DMIntro
-            // 
-            this.DMIntro.AutoSize = true;
-            this.DMIntro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DMIntro.Location = new System.Drawing.Point(3, 0);
-            this.DMIntro.Name = "DMIntro";
-            this.DMIntro.Size = new System.Drawing.Size(131, 51);
-            this.DMIntro.TabIndex = 2;
-            this.DMIntro.Text = "DM destination";
-            this.DMIntro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.DMIntro.Visible = false;
-            this.DMIntro.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // DMbutton
-            // 
-            this.DMbutton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DMbutton.Location = new System.Drawing.Point(3, 84);
-            this.DMbutton.Name = "DMbutton";
-            this.DMbutton.Size = new System.Drawing.Size(131, 61);
-            this.DMbutton.TabIndex = 3;
-            this.DMbutton.Text = "Send DM";
-            this.DMbutton.UseVisualStyleBackColor = true;
-            this.DMbutton.Visible = false;
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 562);
+            this.ClientSize = new System.Drawing.Size(1043, 763);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ClientForm";
@@ -264,7 +236,5 @@ namespace Client
         private System.Windows.Forms.TextBox nicknameTextBox;
         private System.Windows.Forms.Button joinButton;
         private System.Windows.Forms.Label errorLabel;
-        private System.Windows.Forms.Label DMIntro;
-        private System.Windows.Forms.Button DMbutton;
     }
 }
