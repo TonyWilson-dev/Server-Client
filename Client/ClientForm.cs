@@ -21,9 +21,7 @@ namespace Client
         public ClientForm()
         {
             InitializeComponent();
-        }
-
-        
+        }        
        public ClientForm(TCP_Client client) 
         {
             InitializeComponent();

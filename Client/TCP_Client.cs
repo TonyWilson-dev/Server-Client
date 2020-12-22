@@ -25,7 +25,6 @@ namespace Client
         private BinaryFormatter m_Formatter;
         private MemoryStream m_MemoryStream;
         private Packet recievedPacket;
-
         private UdpClient m_UdpClient;
 
         //encryption members
@@ -40,24 +39,18 @@ namespace Client
         {
             //constructor
             m_ClientForm = new ClientForm(this);
-            m_TcpClient = new TcpClient();
-            
+            m_TcpClient = new TcpClient();           
             m_Formatter = new BinaryFormatter();
             
             //ENCRYPTION
             m_RSAProvider = new RSACryptoServiceProvider(1024);
             m_PublicKey = m_RSAProvider.ExportParameters(false);
             m_PrivateKey = m_RSAProvider.ExportParameters(true);
-
-            
-
         }
 
         public void TCP_SendMessage(Packet packet)
         {
             m_MemoryStream = new MemoryStream();
-            
-
             m_Formatter.Serialize(m_MemoryStream, packet);
             byte[] buffer = m_MemoryStream.GetBuffer();
             m_Writer.Write(buffer.Length);
@@ -79,13 +72,11 @@ namespace Client
                 m_Writer = new BinaryWriter(m_NetworkStream, Encoding.UTF8);
 
                 EncryptPacket encryptPacket = new EncryptPacket(m_PublicKey);
-
                 EncryptPacket sendPacket = (EncryptPacket)encryptPacket; // cast packet as chat packet
 
                 TCP_SendMessage(sendPacket);
 
                 Console.WriteLine("Encrypt packet sent");
-
                 return true;
             }
 
