@@ -49,9 +49,9 @@ namespace Client
        
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            var m_ChatMessage = new Packets.ChatMessagePacket(m_Message);
-            m_ChatMessage.m_PacketType = 0;
-            m_client.TCP_SendMessage(m_ChatMessage); //implement method in client class
+            var chatMessage = new Packets.ChatMessagePacket(m_Message);
+            chatMessage.m_PacketType = 0;
+            m_client.TCP_SendMessage(chatMessage); //implement method in client class
             InputField.Text = ("");
         }
 
@@ -61,6 +61,32 @@ namespace Client
         }
 
         private void MessageWindow_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void joinButton_Click(object sender, EventArgs e)
+        {
+            var setNickName = new Packets.SetNickName(nicknameTextBox.Text);
+            m_client.TCP_SendMessage(setNickName); //implement method in client class
+            introLabel.Text = ("Your nick name is: " + nicknameTextBox.Text);
+            joinButton.Hide();
+            DMbutton.Show();
+            DMIntro.Show();
+            nicknameTextBox.Text = "";
+        }
+
+        private void introLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

@@ -10,7 +10,8 @@ namespace Packets
         PrivateMessage = 1,
         ClientName = 2,
         Login = 3,
-        Encrypt = 4
+        Encrypt = 4,
+        SetNickName = 5
     }
 
     [Serializable]
@@ -66,4 +67,17 @@ namespace Packets
             m_PublicKey = PublicKey;
         }
     }
+
+    [Serializable]
+    public class SetNickName : Packet
+    {
+        public string m_NickName;
+
+        public SetNickName(string Nickname)
+        {
+            this.m_PacketType = (PacketType)5;
+            m_NickName = Nickname;
+        }
+    }
+
 }
