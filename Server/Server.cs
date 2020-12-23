@@ -135,6 +135,10 @@ namespace Server
                         m_Names.TryAdd(Index, name);
                         Console.WriteLine("Added nickname: " + name);
                         break;
+
+                    case PacketType.localGameUpdate:
+                        LocalGameUpdate localGameUpdate = (LocalGameUpdate)recievedPacket;
+                        break;
                 }   
             }
             m_Clients[Index].Close();

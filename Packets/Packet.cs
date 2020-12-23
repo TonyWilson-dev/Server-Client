@@ -12,6 +12,7 @@ namespace Packets
         Login = 3,
         Encrypt = 4,
         SetNickName = 5,
+        localGameUpdate = 6,
     }
 
     [Serializable]
@@ -92,6 +93,20 @@ namespace Packets
             m_Destination = desitnation;
             m_Sender = sender;
             this.m_PacketType = (PacketType)1;           
+        }
+    }
+
+    [Serializable]
+    public class LocalGameUpdate : Packet
+    {
+        public int m_x, m_y;
+
+        public LocalGameUpdate(int x, int y)
+        {
+            this.m_PacketType = (PacketType)6;
+            m_x = x;
+            m_y = y;
+          
         }
     }
 

@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameClient", "..\gameClient\gameClient.csproj", "{0BD4776B-A07D-442D-960A-D9E1E2B32510}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,9 +34,16 @@ Global
 		{EAD2E6F9-0430-4B90-AC2B-2E6D7922955F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD2E6F9-0430-4B90-AC2B-2E6D7922955F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD2E6F9-0430-4B90-AC2B-2E6D7922955F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD4776B-A07D-442D-960A-D9E1E2B32510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD4776B-A07D-442D-960A-D9E1E2B32510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD4776B-A07D-442D-960A-D9E1E2B32510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD4776B-A07D-442D-960A-D9E1E2B32510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0BD4776B-A07D-442D-960A-D9E1E2B32510} = {751F1BC0-BE91-47E9-9D13-5F1DDFF75B9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AEA021D-0B5D-4D75-8FDB-345406DF1F4E}

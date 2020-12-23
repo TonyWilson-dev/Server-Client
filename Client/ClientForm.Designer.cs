@@ -38,8 +38,8 @@ namespace Client
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.introLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.joinButton = new System.Windows.Forms.Button();
             this.nicknameTextBox = new System.Windows.Forms.TextBox();
+            this.joinButton = new System.Windows.Forms.Button();
             this.errorLabel = new System.Windows.Forms.Label();
             SubmitButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
@@ -173,6 +173,15 @@ namespace Client
             this.tableLayoutPanel5.TabIndex = 1;
             this.tableLayoutPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel5_Paint);
             // 
+            // nicknameTextBox
+            // 
+            this.nicknameTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nicknameTextBox.Location = new System.Drawing.Point(3, 75);
+            this.nicknameTextBox.Name = "nicknameTextBox";
+            this.nicknameTextBox.Size = new System.Drawing.Size(200, 26);
+            this.nicknameTextBox.TabIndex = 1;
+            this.nicknameTextBox.Text = "User";
+            // 
             // joinButton
             // 
             this.joinButton.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -183,15 +192,6 @@ namespace Client
             this.joinButton.Text = "Join";
             this.joinButton.UseVisualStyleBackColor = true;
             this.joinButton.Click += new System.EventHandler(this.joinButton_Click);
-            // 
-            // nicknameTextBox
-            // 
-            this.nicknameTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nicknameTextBox.Location = new System.Drawing.Point(3, 75);
-            this.nicknameTextBox.Name = "nicknameTextBox";
-            this.nicknameTextBox.Size = new System.Drawing.Size(200, 26);
-            this.nicknameTextBox.TabIndex = 1;
-            this.nicknameTextBox.Text = "User";
             // 
             // errorLabel
             // 

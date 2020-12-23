@@ -35,6 +35,10 @@ namespace Client
         private RSAParameters m_ServerKey;
         public RSAParameters M_ServerKey { get; set; }
 
+        //peaches big adventure
+        public int m_x;
+        public int m_y;
+
         public TCP_Client()
         {
             //constructor
@@ -133,6 +137,12 @@ namespace Client
                         M_ServerKey = encryptPacket.m_PublicKey;
                         Console.WriteLine("client key recieved: " + M_ServerKey);
                         break;
+
+                    case PacketType.localGameUpdate:
+                        LocalGameUpdate localGameUpdate = (LocalGameUpdate)recievedPacket;
+                        m_x = localGameUpdate.m_x;
+                        m_y = localGameUpdate.m_y;
+                    break;
                 }
             }
         }
