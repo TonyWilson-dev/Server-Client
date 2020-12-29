@@ -2,11 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using Packets;
@@ -23,14 +19,12 @@ namespace Server
         private object m_ReadLock;
         private object m_WriteLock;
         private BinaryFormatter m_Formatter;
-
         public IPEndPoint m_IPEndPoint;
 
         //encryption members
         private RSACryptoServiceProvider m_RSAProvider;
         private RSAParameters m_PublicKey;
         private RSAParameters m_PrivateKey;
-
         private RSAParameters m_ClientKey;
         public RSAParameters M_ClientKey { get; set; }
         public Client (Socket socket)
@@ -101,7 +95,6 @@ namespace Server
             lock (m_RSAProvider)
             {
                 m_RSAProvider.ImportParameters(m_ClientKey);
-
                 return m_RSAProvider.Encrypt(data, true);
             }
             

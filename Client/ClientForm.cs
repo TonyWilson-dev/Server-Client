@@ -13,22 +13,14 @@ namespace Client
     public partial class ClientForm : Form
     {
         private TCP_Client m_client;
-
         private string m_NickName;
-
         public string m_Message;
-
         public Packets.ChatMessagePacket m_ChatMessage;
-
-        public ClientForm()
-        {
-            InitializeComponent();
-        }        
+      
        public ClientForm(TCP_Client client) 
         {
             InitializeComponent();
-            m_client = client;
-            
+            m_client = client;           
         }
 
         public void UpdateChatWindow(string message)
@@ -79,6 +71,7 @@ namespace Client
             m_NickName = nicknameTextBox.Text;
             introLabel.Text = ("Your nick name is: " + nicknameTextBox.Text);
             joinButton.Hide();
+            
             /*
             DMbutton.Show();
             DMIntro.Show();
@@ -98,6 +91,5 @@ namespace Client
             InputField.Text = "";
             nicknameTextBox.Text = "";
         }
-
     }
 }

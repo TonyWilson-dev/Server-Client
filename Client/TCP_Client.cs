@@ -2,16 +2,11 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using Packets;
-using System.Text.RegularExpressions;
 
 namespace Client
 {
@@ -31,7 +26,6 @@ namespace Client
         private RSACryptoServiceProvider m_RSAProvider;
         private RSAParameters m_PublicKey;
         private RSAParameters m_PrivateKey;
-
         private RSAParameters m_ServerKey;
         public RSAParameters M_ServerKey { get; set; }
 
@@ -77,10 +71,10 @@ namespace Client
 
                 EncryptPacket encryptPacket = new EncryptPacket(m_PublicKey);
                 EncryptPacket sendPacket = (EncryptPacket)encryptPacket; // cast packet as chat packet
-
                 TCP_SendMessage(sendPacket);
 
                 Console.WriteLine("Encrypt packet sent");
+
                 return true;
             }
 
@@ -127,8 +121,10 @@ namespace Client
                             ChatMessagePacket chatPacket = (ChatMessagePacket)recievedPacket;
                             m_ClientForm.UpdateChatWindow(chatPacket.m_Message);                       
                         break;
+
                     case PacketType.ClientName: // Private message
                         break;
+
                     case PacketType.PrivateMessage: //client name
                         break;
 
@@ -142,7 +138,8 @@ namespace Client
                         LocalGameUpdate localGameUpdate = (LocalGameUpdate)recievedPacket;
                         m_x = localGameUpdate.m_x;
                         m_y = localGameUpdate.m_y;
-                    break;
+                        break;
+
                 }
             }
         }
@@ -162,9 +159,7 @@ namespace Client
             //login
 
             Console.WriteLine("Login called");
-
             var loginPacket = new LoginPacket((IPEndPoint)m_UdpClient.Client.LocalEndPoint);
-
             TCP_SendMessage(loginPacket);
 
             Console.WriteLine("Login packet sent");
@@ -175,12 +170,9 @@ namespace Client
         {
             // send message
             m_MemoryStream = new MemoryStream();
-
             m_Formatter.Serialize(m_MemoryStream, packet);
             byte[] buffer = m_MemoryStream.GetBuffer();
             m_UdpClient.Send(buffer, buffer.Length);
-            
-            
             m_Writer.Flush(); //needed?
 
             Console.WriteLine("UDP message sent");
@@ -197,7 +189,6 @@ namespace Client
                 while (true)
                 {       
                         byte[] bytes = m_UdpClient.Receive(ref endPoint);
-
                         MemoryStream memStream = new MemoryStream(bytes);
                         recievedPacket = m_Formatter.Deserialize(memStream) as Packet; //deserialize data
                 }
@@ -215,7 +206,6 @@ namespace Client
             lock (m_RSAProvider)
             {
                 m_RSAProvider.ImportParameters(m_ServerKey);
-
                 return m_RSAProvider.Encrypt(data, true);
             }
             
@@ -237,6 +227,5 @@ namespace Client
         {
             return Encoding.UTF8.GetString(Decrypt(data)); //decrypt data, convert to string and return
         }
-
     }
 }

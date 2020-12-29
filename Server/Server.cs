@@ -5,9 +5,7 @@ using System.Net.Sockets;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using Packets;
 
@@ -94,12 +92,8 @@ namespace Server
                         string message = privateMessage.m_Message;
 
                         var privateMessageSend = new ChatMessagePacket(message);
-
                         privateMessageSend.m_Message = "From " + sender + ": " + message;
-
-                        
                         var key = m_Names.FirstOrDefault(i => i.Value == destination).Key;
-
                         m_Clients[key].Send(privateMessageSend);
 
                         break;
@@ -120,7 +114,6 @@ namespace Server
                             byte[] buffer = memStream.GetBuffer();
                             m_UdpListener.Send(buffer, buffer.Length, entry.Value.m_IPEndPoint); // send data back to client
                         }
-
                         break;
 
                     case PacketType.Encrypt: //encrypt packet
@@ -128,12 +121,15 @@ namespace Server
                         m_Clients[Index].M_ClientKey = encryptPacket.m_PublicKey;
 
                         Console.WriteLine("client key recieved: " + m_Clients[Index].M_ClientKey);
+
                         break;
                     case PacketType.SetNickName:
                         SetNickName setNickName = (SetNickName)recievedPacket; // cast packet as nickname packet
                         string name = setNickName.m_NickName;
                         m_Names.TryAdd(Index, name);
+
                         Console.WriteLine("Added nickname: " + name);
+
                         break;
 
                     case PacketType.localGameUpdate:
@@ -179,7 +175,6 @@ namespace Server
                 clientIndex++;
 
                 m_Clients.TryAdd(index, client);
-
                 var thread = new Thread(() => {TCP_ClientMethod(index);});
                 thread.Start();
 

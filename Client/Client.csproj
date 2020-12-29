@@ -45,12 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClientLogin.Designer.cs">
-      <DependentUpon>ClientLogin.cs</DependentUpon>
-    </Compile>
     <Compile Include="TCP_Client.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
@@ -67,9 +61,6 @@
   <ItemGroup>
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ClientLogin.resx">
-      <DependentUpon>ClientLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

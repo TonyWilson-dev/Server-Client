@@ -49,8 +49,6 @@ namespace Packets
     public class LoginPacket: Packet
     {
         public IPEndPoint m_EndPoint;
-
-
         public LoginPacket (IPEndPoint endPoint)
         {
             this.m_PacketType = (PacketType)3;
@@ -61,7 +59,6 @@ namespace Packets
     public class EncryptPacket : Packet
     {
         public RSAParameters m_PublicKey;
-
         public EncryptPacket(RSAParameters PublicKey)
         {
             this.m_PacketType = (PacketType)4;
@@ -100,7 +97,6 @@ namespace Packets
     public class LocalGameUpdate : Packet
     {
         public int m_x, m_y;
-
         public LocalGameUpdate(int x, int y)
         {
             this.m_PacketType = (PacketType)6;
