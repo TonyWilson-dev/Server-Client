@@ -15,7 +15,7 @@ namespace Server
     {
         private TcpListener m_TcpListener;
         private ConcurrentDictionary<int, Client> m_Clients;
-        // private ConcurrentDictionary<int, String> m_Names;
+       
         public Packet m_RecievedPacket;
         private UdpClient m_UdpListener;
         private BinaryFormatter m_Formatter;
@@ -127,11 +127,29 @@ namespace Server
                     case PacketType.SetNickName:
                         SetNickName setNickName = (SetNickName)recievedPacket; // cast packet as nickname packet
                         string name = setNickName.m_NickName;
-                        // m_Names.TryAdd(Index, name);
+                       
 
                         m_Clients[Index].m_Nickname = name;
 
                         Console.WriteLine("Added nickname: " + name);
+
+                        // send client list
+
+                        string clientListIntro = "The current clients are: " ;
+
+                        for (int i = 0; i < m_Clients.Count; i++)
+                        {
+                            clientListIntro = clientListIntro + m_Clients[i].m_Nickname + ", ";
+                        }
+
+                        var clientListPacket = new ChatMessagePacket(clientListIntro);
+
+                        
+
+                        for (int i = 0; i < m_Clients.Count; i++)
+                        {
+                            m_Clients[i].Send(clientListPacket);
+                        }
 
                         break;
 
@@ -163,7 +181,7 @@ namespace Server
         {
             // start method
             m_Clients = new ConcurrentDictionary<int, Client>();
-            // m_Names = new ConcurrentDictionary<int, string>();
+            
             int clientIndex = 0;
             m_TcpListener.Start();
             Console.WriteLine("Listener started");
