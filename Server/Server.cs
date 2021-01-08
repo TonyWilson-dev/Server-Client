@@ -68,8 +68,22 @@ namespace Server
                         try
                         {
                             string name1 = m_Clients[Index].m_Nickname;
-                            chatPacket.m_Message = name1 + ": " + chatPacket.m_Message;
-                            
+
+                            if (chatPacket.m_Message == "!mine")
+                            {
+                                m_Clients[Index].m_Diamonds += 1;
+                                chatPacket.m_Message = name1 + " has mined! They now have: " + m_Clients[Index].m_Diamonds+ " diamonds" ;
+
+
+                            }
+                            else
+                            {
+
+                                chatPacket.m_Message = name1 + ": " + chatPacket.m_Message;
+
+
+                            }
+
                             for (int i = 0; i < m_Clients.Count; i++)
                             {
                                 m_Clients[i].Send(chatPacket);

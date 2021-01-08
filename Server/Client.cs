@@ -22,6 +22,7 @@ namespace Server
         public IPEndPoint m_IPEndPoint;
 
         public string m_Nickname;
+        public int m_Diamonds;
 
         //encryption members
         private RSACryptoServiceProvider m_RSAProvider;
@@ -39,6 +40,7 @@ namespace Server
             m_NetworkStream = new NetworkStream(socket, true);
             m_Reader = new BinaryReader(m_NetworkStream, Encoding.UTF8);
             m_Writer = new BinaryWriter(m_NetworkStream, Encoding.UTF8);
+            m_Diamonds = 0;
 
             //encryption
             m_RSAProvider = new RSACryptoServiceProvider(1024);
