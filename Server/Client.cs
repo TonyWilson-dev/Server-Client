@@ -21,6 +21,8 @@ namespace Server
         private BinaryFormatter m_Formatter;
         public IPEndPoint m_IPEndPoint;
 
+        public string m_Nickname;
+
         //encryption members
         private RSACryptoServiceProvider m_RSAProvider;
         private RSAParameters m_PublicKey;

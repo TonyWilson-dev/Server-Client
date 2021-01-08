@@ -15,7 +15,7 @@ namespace Server
     {
         private TcpListener m_TcpListener;
         private ConcurrentDictionary<int, Client> m_Clients;
-        private ConcurrentDictionary<int, String> m_Names;
+        // private ConcurrentDictionary<int, String> m_Names;
         public Packet m_RecievedPacket;
         private UdpClient m_UdpListener;
         private BinaryFormatter m_Formatter;
@@ -67,7 +67,7 @@ namespace Server
 
                         try
                         {
-                            string name1 = m_Names[Index];
+                            string name1 = m_Clients[Index].m_Nickname;
                             chatPacket.m_Message = name1 + ": " + chatPacket.m_Message;
                             
                             for (int i = 0; i < m_Clients.Count; i++)
@@ -93,9 +93,10 @@ namespace Server
 
                         var privateMessageSend = new ChatMessagePacket(message);
                         privateMessageSend.m_Message = "From " + sender + ": " + message;
-                        var key = m_Names.FirstOrDefault(i => i.Value == destination).Key;
+                       /*
+                        var key = m_Clients.FirstOrDefault(i => i.Value == destination).Key;
                         m_Clients[key].Send(privateMessageSend);
-
+                       */
                         break;
                     case PacketType.PrivateMessage: //client name
                         break;
@@ -126,7 +127,9 @@ namespace Server
                     case PacketType.SetNickName:
                         SetNickName setNickName = (SetNickName)recievedPacket; // cast packet as nickname packet
                         string name = setNickName.m_NickName;
-                        m_Names.TryAdd(Index, name);
+                        // m_Names.TryAdd(Index, name);
+
+                        m_Clients[Index].m_Nickname = name;
 
                         Console.WriteLine("Added nickname: " + name);
 
@@ -160,7 +163,7 @@ namespace Server
         {
             // start method
             m_Clients = new ConcurrentDictionary<int, Client>();
-            m_Names = new ConcurrentDictionary<int, string>();
+            // m_Names = new ConcurrentDictionary<int, string>();
             int clientIndex = 0;
             m_TcpListener.Start();
             Console.WriteLine("Listener started");
