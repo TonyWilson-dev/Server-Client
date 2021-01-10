@@ -43,10 +43,17 @@ namespace Client
        
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            var chatMessage = new Packets.ChatMessagePacket(m_Message);
-            chatMessage.m_PacketType = 0;
-            m_client.TCP_SendMessage(chatMessage); //implement method in client class
-            InputField.Text = ("");
+            if (m_NickName == null)
+            {
+                MessageWindow.Text = "Please put in a nickname and join the server";
+            }
+            else
+            {
+                var chatMessage = new Packets.ChatMessagePacket(m_Message);
+                chatMessage.m_PacketType = 0;
+                m_client.TCP_SendMessage(chatMessage); //implement method in client class
+                InputField.Text = ("");
+            }
         }
 
         private void InputField_TextChanged(object sender, EventArgs e)
