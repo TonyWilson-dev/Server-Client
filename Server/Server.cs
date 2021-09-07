@@ -107,10 +107,7 @@ namespace Server
 
                         var privateMessageSend = new ChatMessagePacket(message);
                         privateMessageSend.m_Message = "From " + sender + ": " + message;
-                       /*
-                        var key = m_Clients.FirstOrDefault(i => i.Value == destination).Key;
-                        m_Clients[key].Send(privateMessageSend);
-                       */
+                      
                         break;
                     case PacketType.PrivateMessage: //client name
                         break;

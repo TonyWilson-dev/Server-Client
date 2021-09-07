@@ -144,7 +144,7 @@ namespace Client
             }
         }
 
-        public void Close() //TODO: make this be called at some point 
+        public void Close()
         {
             m_NetworkStream.Close();
             m_Reader.Close();
